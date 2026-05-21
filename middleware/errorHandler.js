@@ -6,6 +6,8 @@ import {
   UnauthorizedError,
 } from "../errors/errors.js";
 export const errorHandler = (error, req, res, next) => {
+  console.log(error);
+
   if (error instanceof CustomError) {
     return res.status(error.status).json({ msg: error.message });
   }
