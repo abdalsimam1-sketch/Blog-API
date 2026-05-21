@@ -1,0 +1,44 @@
+import "dotenv/config";
+import cors from "cors";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import sanitize from "express-mongo-sanitize";
+import express from "express";
+import { connectDB } from "./db/connectDB.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { routeNotFound } from "./middleware/routeNotFound.js";
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+//global middleware
+app.use(express.json());
+
+//security middleware
+app.use(cors());
+app.use(helmet());
+app.use(sanitize());
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  }),
+);
+
+//routes
+
+//error handling middleware
+app.use(routeNotFound);
+app.use(errorHandler);
+
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}......`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+start();
