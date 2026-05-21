@@ -2,7 +2,6 @@ import "dotenv/config";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import sanitize from "express-mongo-sanitize";
 import express from "express";
 import { connectDB } from "./db/connectDB.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -18,7 +17,6 @@ app.use(express.json());
 //security middleware
 app.use(cors());
 app.use(helmet());
-app.use(sanitize());
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
