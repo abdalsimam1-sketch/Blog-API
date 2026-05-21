@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-
-export const routeNotFound = (req, res) => {
-  res.status(StatusCodes.NOT_FOUND).send("Route does not exist");
+import { NotFoundError } from "../errors/errors.js";
+export const routeNotFound = (req, res, next) => {
+  next(new NotFoundError("Route does not exist"));
 };
