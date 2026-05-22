@@ -7,6 +7,7 @@ import { connectDB } from "./db/connectDB.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { routeNotFound } from "./middleware/routeNotFound.js";
 import { authRouter } from "./routes/authRoutes.js";
+import { postRouter } from "./routes/postRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ app.use(
 
 //routes mounting middleware
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/posts", postRouter);
 
 //error handling middleware
 app.use(routeNotFound);
