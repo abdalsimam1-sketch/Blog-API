@@ -1,10 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import {
-  CustomError,
-  NotFoundError,
-  BadRequestError,
-  UnauthorizedError,
-} from "../errors/errors.js";
+import { CustomError } from "../errors/errors.js";
 export const errorHandler = (error, req, res, next) => {
   console.log(error);
 
